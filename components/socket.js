@@ -4,39 +4,43 @@ var client = $('#username').val().substring(22)
 
 // socket connection (sends connection check message)
 socket.on('connect', function() {
-	socket.emit('my event', {
-		conn: 'User Connected'
+
+	socket.emit('message', {
+		user: client,
+		status: 'connected'
 	})
 
-	// emits message to server (data from form) event = my event
+	// emits message to server (data from form) || event = message
 	var form = $('form').on('submit', function(e) {
 		e.preventDefault()
 
-		let name = $('input.user').val()
 		let message = $('input.message').val()
 
-		socket.emit('my event', {
-			user: name.substring(22),
+		socket.emit('message', {
+			user: client,
 			data: message
 		})
 
 		$('input.message').val('').focus()
+	})
 
+	// emits disconnection warning to server || event = disconnection
+	$('#quit').on('click', function() {
+		socket.emit('disconnection', {user: client})
 	})
 })
 
-// receives message from server (jquery to print message) event = my response
-socket.on('my response', function(data) {
-	console.log(data)
+// receives message from server (jquery to print message) || event = relay
+socket.on('relay', function(data) {
 
-	if (data.data !== '' && typeof data.user !== 'undefined'){
+	if (data.data !== '' && typeof data.data !== 'undefined'){
 
 		if (data.user !== client) {
 			$('#warn').remove()
 			$('div.col-7').prepend('<div class="msg"><b>['+data.user+'] </b>'+data.data+'</div>')
 		} else {
 			$('#warn').remove()
-			$('div.col-7').prepend('<div class="mymsg"><b>['+data.user+'] </b>'+data.data+'</div>')
+			$('div.col-7').prepend('<div class="mymsg"><b>['+data.user+'] </b>'+data.data+'</span></div>')
 		}
 	}
 
@@ -45,4 +49,12 @@ socket.on('my response', function(data) {
 	if (counter > 9) {
 		$('div.msg').last().remove()
 	}
+})
+
+// receives number of connections from server || event = online now
+socket.on('online now', function(data) {
+
+	$('#conn').remove()
+	$('div.online').append('<p id="conn" style="font-size: 14px;"><i>Online agora: '+data+'</i></p>')
+
 })
