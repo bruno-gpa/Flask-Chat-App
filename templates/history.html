@@ -2,7 +2,11 @@
 
 {% block title %}Message History | Chat App{% endblock %}
 
-{% block header %}Message History<hr style="border-color: grey;">{% endblock %}
+{% block header %}
+<h1 id="head" style="margin-top: 30px;">Message History
+	<hr style="border-color: grey;">
+</h1>
+{% endblock %}
 
 <!-- shows message history -->
 {% block content %}
@@ -19,7 +23,7 @@
 {% block content2 %}
 <div style="margin-left: 2rem;">
 
-	<h5 style="color: green;">{{user}}, este é o seu histórico de mensagens</h5>
+	<h5 style="color: green;">{{code[5:]}}, este é o seu histórico de mensagens</h5>
 
 	<hr style="border-color: grey;">
 	
@@ -28,9 +32,9 @@
 
 	<hr style="border-color: grey; margin-bottom: 2rem;">
 
-	<a href="/chat/{{user}}" class="btn btn-sm btn-outline-info btn-block">Voltar &nbsp;
+	<a href="/chat/{{code}}" class="btn btn-sm btn-outline-info btn-block">Voltar &nbsp;
 		<i class="far fa-arrow-alt-circle-left"></i></a>
-	<a href="/delete-account/{{user}}" class="btn btn-sm btn-outline-info btn-block">Deletar dados &nbsp;
+	<a href="/delete-account/{{code[5:]}}" class="btn btn-sm btn-outline-info btn-block">Deletar dados &nbsp;
 		<i class="fas fa-ban" style="color: #1E90ff;"></i></a>
 
 </div>
