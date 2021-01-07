@@ -2,7 +2,11 @@
 
 {% block title %}Message Room | Chat App{% endblock %}
 
-{% block header %}Message Room<hr style="border-color: grey;">{% endblock %}
+{% block header %}
+<h1 id="head" style="margin-top: 30px;">Message Room {{code[:4]}}
+	<hr style="border-color: grey;">
+<h1>
+{% endblock %}
 
 <!-- Chat screen -->
 {% block content %}
@@ -16,7 +20,7 @@
 	<form class="form-group" autocomplete='off' method="POST">
 		<div class="form-group">
 			<h5><input id="username" type="text" readonly class="user form-control-plaintext" 
-				style="color: green;" value="Você está logado como {{user}}"></h5>
+				style="color: green;" value="Você está logado como {{code[5:]}}"></h5>
 			<div class="online">
 				<p id="conn" style="font-size: 14px;"><i>Online agora: 0</i></p>
 			</div>
@@ -30,9 +34,9 @@
 	<hr style="border-color: grey; margin-top: 2rem; margin-bottom: 2rem;">
 
 	<div class="btn-group btn-block" role="group">
-  		<a href="/chat/{{user}}/history" class="btn btn-sm btn-outline-info" style="width: 50%;">
+  		<a href="/chat/{{code}}/history" class="btn btn-sm btn-outline-info" style="width: 50%;">
   			Minhas mensagens &nbsp;<i class="far fa-folder" style="color: #1E90ff;"></i></a>
-  		<a href="/delete-account" class="btn btn-sm btn-outline-info" style="width: 50%;">
+  		<a href="/delete-account/{{code[5:]}}" class="btn btn-sm btn-outline-info" style="width: 50%;">
   			Deletar dados &nbsp;<i class="fas fa-ban" style="color: #1E90ff;"></i></a>
 	</div>
 
@@ -43,15 +47,17 @@
 {% block js %}
 <script>
 	
-	var socket = io.connect('localhost')
+	var socket = io.connect('http://127.0.0.1:5000/')
 	var client = $('#username').val().substring(22)
+	var room = $('#head').text().substring(13, 17)
 
 	// socket connection (sends connection check message)
 	socket.on('connect', function() {
 
 		socket.emit('message', {
 			user: client,
-			status: 'connected'
+			status: 'connected',
+			room: room
 		})
 
 		// emits message to server (data from form) || event = message
@@ -62,7 +68,8 @@
 
 			socket.emit('message', {
 				user: client,
-				data: message
+				data: message,
+				room: room
 			})
 
 			$('input.message').val('').focus()
@@ -70,14 +77,14 @@
 
 		// emits disconnection warning to server || event = disconnection
 		$('#quit').on('click', function() {
-			socket.emit('disconnection', {user: client})
+			socket.emit('disconnection', {user: client, room: room})
 		})
 	})
 
 	// receives message from server (jquery to print message) || event = relay
 	socket.on('relay', function(data) {
 
-		if (data.data !== '' && typeof data.data !== 'undefined'){
+		if (data.data !== '' && typeof data.data !== 'undefined' && data.room == room){
 
 			if (data.user !== client) {
 				$('#warn').remove()
