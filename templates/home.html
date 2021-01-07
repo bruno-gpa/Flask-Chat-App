@@ -9,13 +9,32 @@
   	<p class="lead" style="margin-top: 2rem;">Esta é uma aplicação simples de chat online baseada em Flask SocketIO.</p>
 
   	<hr class="my-4">
-  	<p>Escolha um nome para entrar:</p>
+  	<p id="help">Escolha um nome para entrar:</p>
 
   	<form class="form-inline" autocomplete='off' method="POST" style="margin-top: 1rem;">
-		<input type="text" name="user" placeholder="Nome" style="width: 20rem; height: 3rem; 
+		<input type="text" id="user" name="user" placeholder="Nome" style="width: 15rem; height: 3rem; 
 			font-size: 18px"></textarea>
-		<button type='submit' class="btn btn-lg btn-success" 
+		<input type="text" id="room" name="room" placeholder="Sala" style="width: 10rem; height: 3rem; 
+			font-size: 18px; margin-left: 1rem;"></textarea>
+		<button type='submit' id="send" class="btn btn-lg btn-success"
 			style="margin-left: 1rem; height: 3rem; width: 6rem;">Entrar</button>
 	</form>
 </div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+
+	$('#send').on('click', function() {
+		var str = $('#user').val()
+		var num = $('#room').val()
+
+		if (!/^[a-zA-Z() ]*$/.test(str)) {
+			$('#help').html('<b>ERRO: nome inválido</b>').css('color', 'green')
+		} else if (isNaN(num)) {
+			$('#help').html('<b>ERRO: sala inválida</b>').css('color', 'green')
+		}
+	})
+
+</script>
 {% endblock %}
