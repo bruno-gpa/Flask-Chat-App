@@ -95,11 +95,15 @@ def handle_disconnection(json):
 	user, code = json["user"], json["room"]
 	rooms[code].remove(user)
 
-	print("\n[User disconnected]")
-	print(f"[Current connections] {len(rooms[code])}")
-	print(f"[Current users] {rooms[code]}\n")
+	print("\n[User disconnected]\n")
 
-	socketio.emit("online now", str(len(rooms[code])))
+	if check_empty(rooms, code):
+		rooms.pop(code)
+	else:
+		print(f"\n[Current connections] {len(rooms[code])}")
+		print(f"[Current users] {rooms[code]}\n")
+
+		socketio.emit("online now", str(len(rooms[code])))
 
 
 # SocketIO app run
