@@ -1,0 +1,22 @@
+div.msg {
+	background-color: #F5F5F5;
+	font-size: 16px;
+    padding: 10px 10px;
+	border-radius: 10px;
+	border-style: solid;
+	border-color: #90EE90;
+	border-width: 1px;
+	color: #555;
+	margin-bottom: 5px;
+}
+div.mymsg {
+	background-color: #E0FFFF;
+	font-size: 16px;
+    padding: 10px 10px;
+	border-radius: 10px;
+	border-style: solid;
+	border-color: #87CEFA;
+	border-width: 1px;
+	color: #555;
+	margin-bottom: 5px;
+}
