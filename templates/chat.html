@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Message Room | Chat App{% endblock %}
+
+{% block header %}
+<h1 id="head" style="margin-top: 30px;">Message Room #{{code[:4]}}
+	<hr style="border-color: grey;">
+<h1>
+{% endblock %}
+
+<!-- Chat screen -->
+{% block content %}
+<h2 id="warn" style='color: #ccc'>Ainda não há mensagens</h2>
+{% endblock %}
+
+<!-- Send message form -->
+{% block content2 %}
+<div style="margin-left: 2rem;">
+
+	<form class="form-group" autocomplete='off' method="POST">
+		<div class="form-group">
+			<h5><input id="username" type="text" readonly class="user form-control-plaintext" 
+				style="color: green;" value="Você está logado como {{code[5:]}}"></h5>
+			<div class="online">
+				<p id="conn" style="font-size: 14px;"><i>Online agora: 0</i></p>
+			</div>
+			<hr style="border-color: grey; margin-bottom: 2rem;">
+			<input type="text" class="message form-control" style="height: 4rem;" placeholder="Mensagem"></textarea>
+		</div>
+		<button class="btn btn-success btn-block">Enviar &nbsp;
+			<i class="fa fa-paper-plane"></i></button>
+	</form>
+
+	<hr style="border-color: grey; margin-top: 2rem; margin-bottom: 2rem;">
+
+	<div class="btn-group btn-block" role="group">
+  		<a href="/chat/{{code}}/history" class="btn btn-sm btn-outline-info" style="width: 50%;">
+  			Minhas mensagens &nbsp;<i class="far fa-folder" style="color: #1E90ff;"></i></a>
+  		<a href="/delete-account/{{code[5:]}}" class="btn btn-sm btn-outline-info" style="width: 50%;">
+  			Deletar dados &nbsp;<i class="fas fa-ban" style="color: #1E90ff;"></i></a>
+	</div>
+
+</div>
+{% endblock %}

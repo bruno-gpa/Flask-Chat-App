@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Chat App{% endblock %}
+
+<!-- Login jumbotron -->
+{% block enter %}
+<div class="jumbotron" style="margin-top: 5rem;">
+  	<h1 class="display-4"><b>Chat App</b></h1>
+  	<p class="lead" style="margin-top: 2rem;">Esta é uma aplicação simples de chat online baseada em Flask SocketIO.</p>
+
+  	<hr class="my-4">
+  	<p id="help">Escolha um nome para entrar:</p>
+
+  	<form class="form-inline" autocomplete='off' method="POST" style="margin-top: 1rem;">
+		<input type="text" id="user" name="user" placeholder="Nome" style="width: 15rem; height: 3rem; 
+			font-size: 18px"></textarea>
+		<input type="text" id="room" name="room" placeholder="Sala" style="width: 10rem; height: 3rem; 
+			font-size: 18px; margin-left: 1rem;"></textarea>
+		<button type='submit' id="send" class="btn btn-lg btn-success"
+			style="margin-left: 1rem; height: 3rem; width: 6rem;">Entrar</button>
+	</form>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Message History | Chat App{% endblock %}
+
+{% block header %}
+<h1 id="head" style="margin-top: 30px;">Message History
+	<hr style="border-color: grey;">
+</h1>
+{% endblock %}
+
+<!-- shows message history -->
+{% block content %}
+{% if not messages|length %}
+	<h2 id="warn" style='color: #ccc'>Ainda não há mensagens</h2>
+{% endif %}
+
+{% for x, y in messages %}
+	<div class="msg">[{{y}}] "{{x}}"</div>
+{% endfor %}
+{% endblock %}
+
+<!-- user information -->
+{% block content2 %}
+<div style="margin-left: 2rem;">
+
+	<h5 style="color: green;">{{code[5:]}}, este é o seu histórico de mensagens</h5>
+
+	<hr style="border-color: grey;">
+	
+	<p style="font-size: 18px">Entrou no dia: {{age}}</p>
+	<p style="font-size: 18px">Mensagens enviadas: {{count}}</p>
+
+	<hr style="border-color: grey; margin-bottom: 2rem;">
+
+	<a href="/chat/{{code}}" class="btn btn-sm btn-outline-info btn-block">Voltar &nbsp;
+		<i class="far fa-arrow-alt-circle-left"></i></a>
+	<a href="/delete-account/{{code[5:]}}" class="btn btn-sm btn-outline-info btn-block">Deletar dados &nbsp;
+		<i class="fas fa-ban" style="color: #1E90ff;"></i></a>
+
+</div>
+{% endblock %}
