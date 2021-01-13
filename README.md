@@ -14,7 +14,7 @@ A aplicação agora suporta até 10000 salas de chat. Entrando com um nome qualq
 
 ## Próximos objetivos
 - [x] Criação de salas de chat separadas;
-- [ ] Separação do JavaScript em outro arquivo;
+- [x] Separação do JavaScript em outro arquivo;
 - [ ] Avisos para erros de login.
 
 ## Avisos
